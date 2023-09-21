@@ -5,10 +5,10 @@ describe('ToDo List App', () => {
   });
   
 it('should create a new task', () => {
-    cy.get('button.btn.btn-primary').click(); // Click on the "Create Task" button
+    cy.get('.create-task').click(); // Click on the "Create Task" button
     cy.get('input[name="taskName"]').type('Test Task'); // Enter task name
     cy.get('textarea[name="description"]').type('Test Description'); // Enter task description
-    cy.get('.button').click(); 
+    cy.get('.create').click(); 
     cy.contains('Test Task').should('exist'); // Assert that the task was created and exists
 });
 it('should save the created task in the local storage', () => {
@@ -16,10 +16,10 @@ it('should save the created task in the local storage', () => {
   const taskDescription = 'Test Description';
 
   // Step 1: Open the Create Task modal and create a new task
-  cy.get('button.btn.btn-primary').click();
+  cy.get('.create-task').click();
   cy.get('input[name="taskName"]').type(taskName);
   cy.get('textarea[name="description"]').type(taskDescription);
-  cy.get('.button').contains(/Create/i).click();
+  cy.get('.create').contains(/Create/i).click();
   cy.contains('Test Task').should('exist');
 
   // Step 2: Check the local storage to verify that the task has been saved
@@ -37,10 +37,10 @@ it('should save the created task in the local storage', () => {
 });
 
 it('should edit an existing task', () => {
-  cy.get('button.btn.btn-primary').click(); // Click on the "Create Task" button
+  cy.get('.create-task').click(); // Click on the "Create Task" button
     cy.get('input[name="taskName"]').type('Test Task'); // Enter task name
     cy.get('textarea[name="description"]').type('Test Description'); // Enter task description
-    cy.get('.button').click(); 
+    cy.get('.create').click(); 
     cy.contains('Test Task').should('exist'); // Assert that the task was created and exists
       cy.contains('Test Task').parent().find('i.far.fa-edit').click(); // Click on the edit icon of the task
       cy.get('input[name="taskName"]').clear().type('Updated Test Task'); // Update task name
@@ -50,48 +50,48 @@ it('should edit an existing task', () => {
   });
 
   it('should delete a task', () => {
-    cy.get('button.btn.btn-primary').click(); // Click on the "Create Task" button
+    cy.get('.create-task').click(); // Click on the "Create Task" button
     cy.get('input[name="taskName"]').type('Test Task'); // Enter task name
     cy.get('textarea[name="description"]').type('Test Description'); // Enter task description
-    cy.get('.button').click(); 
+    cy.get('.create').click(); 
     cy.contains('Test Task').should('exist'); // Assert that the task was created and exists    
     cy.contains('Test Task').parent().find('i.fas.fa-trash-alt').click();
     cy.contains('Test Task').should('not.exist'); 
   });
   it('should open and close the "Create Task" modal', () => {
-    cy.get('.btn.btn-primary').click(); // Open "Create Task" modal
+    cy.get('.create-task').click(); // Open "Create Task" modal
     cy.get('.modal-container').should('be.visible');
     cy.get('.cancel').click(); // Close modal
     cy.get('.modal-container').should('not.exist');
   });
   it('should properly load the task list from local storage on startup', () => {
-    cy.get('button.btn.btn-primary').click(); // Click on the "Create Task" button
+    cy.get('.create-task').click(); // Click on the "Create Task" button
     cy.get('input[name="taskName"]').type('Test Task 1'); // Enter task name
     cy.get('textarea[name="description"]').type('Test Description 1'); // Enter task description
-    cy.get('.button').click(); 
+    cy.get('.create').click(); 
     cy.contains('Test Task 1').should('exist'); 
     cy.wait(1000);
-    cy.get('button.btn.btn-primary').click(); // Click on the "Create Task" button
+    cy.get('.create-task').click(); // Click on the "Create Task" button
     cy.get('input[name="taskName"]').type('Test Task 2'); // Enter task name
     cy.get('textarea[name="description"]').type('Test Description 2'); // Enter task description
-    cy.get('.button').click();
+    cy.get('.create').click();
     cy.contains('Test Task 2').should('exist'); 
   });
   it('should display edit and delete buttons on each card', () => {
-    cy.get('button.btn.btn-primary').click(); // Click on the "Create Task" button
+    cy.get('.create-task').click(); // Click on the "Create Task" button
     cy.get('input[name="taskName"]').type('Test Task'); // Enter task name
     cy.get('textarea[name="description"]').type('Test Description'); // Enter task description
-    cy.get('.button').click(); 
+    cy.get('.create').click(); 
     cy.contains('Test Task').should('exist'); // Assert that the task was created and exists
     cy.get('i.far.fa-edit').should('exist');
     cy.get('i.fas.fa-trash-alt').should('exist');
   });
   it('should retain tasks after page refresh because data is stored in localstorage', () => {
 
-    cy.get('.btn.btn-primary').click(); 
+    cy.get('.create-task').click(); 
     cy.get('input[name="taskName"]').type('Test Task'); 
     cy.get('textarea[name="description"]').type('Test Description'); 
-    cy.get('.button').click(); 
+    cy.get('.create').click(); 
     cy.contains('Test Task').should('exist');
   
     // Refresh the page
